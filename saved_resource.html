@@ -11,23 +11,29 @@
 
   <script type="text/javascript" src="./fabric.js"></script>
 
-  <style id="compiled-css" type="text/css">
-      .canvas-wrapper {
-        margin-botom: 30px;
-      }
-  </style>
 
   <script type="text/javascript">
+
+  var colours = ["#bf4040", "#ff8205", "#FFFF00", "#33cc33", "#40bfbf",
+               "#3333cc", "#9f40bf", "#bf8040", "#878788", "#000000"];
+
+  $(document).ready (function () {
+      for(var i=0, size=colours.length; i < size; i++) {
+          var colour = colours[i];
+          console.log(colour)
+          $("#colorpicker").append("<button style='background-color:"+colours[i]+"'; value="+colours[i]+"></button>");
+      }
+  });  
 
   $(window).load(function(){
       
     var canvas;
 
     $(function () {
-        canvas = window._canvas = new fabric.Canvas('canvas');
-        canvas.backgroundColor = '#efefef';
+        canvas = window._canvas = new fabric.Canvas('draw-canvas');
+        canvas.backgroundColor = null;
         canvas.isDrawingMode= 1;
-        canvas.freeDrawingBrush.color = "purple";
+        canvas.freeDrawingBrush.color = "red";
         canvas.freeDrawingBrush.width = 10;
         canvas.renderAll();
 
@@ -37,40 +43,39 @@
         });
       });
 
+    document.getElementById("clear").addEventListener('click', function() {
+      canvas.clear();
+      console.log("cleared");
+    });
+
+    document.getElementById("drawing-line-width").onchange = function() {
+      canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+      document.getElementById("drawing-line-width-span").innerHTML = this.value;
+    }
+
     });
 
 </script>
-
-<canvas id="canvas" width="400" height="400" class="canvas"></canvas>
-
-<!--
-<select name="colors" id="colorpick">
-  <option value="#FFFF00">Yellow</option>
-  <option value="#000000">Black</option>
-  <option value="#FF0000">Red</option>
-</select>
--->
-
-<!-- <div id="colorpicker">
-  <button id="yellow" value="FFFF00">yellow</button>
-  <button id="black" value="000000">black</button>
-</div> -->
-
 </head>
 <body>
-    <div class="canvas-container" style="width: 400px; height: 400px; position: relative; user-select: none;"><canvas id="canvas" width="400" height="400" class="canvas lower-canvas" style="position: absolute; width: 400px; height: 400px; left: 0px; top: 0px; touch-action: none; user-select: none;"></canvas><canvas class="upper-canvas canvas" width="400" height="400" style="position: absolute; width: 400px; height: 400px; left: 0px; top: 0px; touch-action: none; user-select: none; cursor: crosshair;"></canvas></div>
 
-<!--
-<select name="colors" id="colorpick">
-  <option value="#FFFF00">Yellow</option>
-  <option value="#000000">Black</option>
-  <option value="#FF0000">Red</option>
-</select>
--->
 
-<div id="colorpicker">
-<button id="yellow" value="FFFF00">yellow</button>
-<button id="black" value="000000">black</button>
+<div class="container" style="position: relative;">
+ <canvas id="image-canvas" width="308" height="571" 
+   style="position: absolute; left: 0; top: 0; z-index: 0; border: 1px solid black;"></canvas>
+ <canvas id="draw-canvas" width="308" height="571" 
+   style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+</div>
+
+<div id="drawing">
+  <div id="colorpicker">
+    <!-- Filled with JavaScript
+    -->
+  </div>
+<button id="clear">clear</button>
+<label for="drawing-line-width">Line width:</label>
+<span class="info" id="drawing-line-width-span">30</span>
+<input type="range" value="30" min="0" max="150" id="drawing-line-width">
 </div>
 
 

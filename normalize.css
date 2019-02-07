@@ -33,11 +33,7 @@ q:before,q:after {
 }
 abbr,acronym { border:0;}
 
-.container {
+/*.container {
   width: 308px;
   height: 571px;
-}
-
-#image-canvas {
-  background: url("https://s3-eu-west-1.amazonaws.com/informatics-webimages/test-plot.png")
-}
+}*/

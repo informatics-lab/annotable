@@ -32,3 +32,8 @@ q:before,q:after {
   content:'';
 }
 abbr,acronym { border:0;}
+
+/*.container {
+  width: 308px;
+  height: 571px;
+}*/

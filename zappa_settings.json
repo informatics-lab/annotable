@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "backend.annotable_image_service.app",
+        "aws_region": "eu-west-1",
+        "profile_name": "default",
+        "project_name": "annotable",
+        "runtime": "python3.6",
+        "s3_bucket": "informatics-webimages"
+    }
+}

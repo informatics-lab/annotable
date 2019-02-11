@@ -12,6 +12,10 @@ app = Flask(__name__)
 
 BUCKET_NAME = 'informatics-webimages'
 
+@app.route("/", methods=["GET"])
+def hello():
+    """/ says hello world"""
+    return "hello world"
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
@@ -28,3 +32,6 @@ def upload_file():
         s3obj.put(Body=fs.read(), ContentType=fs.content_type)
 
         return f'Uploaded to s3://{bucket.name}/{fn}'
+
+if __name__ == '__main__':
+    app.run()

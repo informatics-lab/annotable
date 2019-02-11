@@ -11,34 +11,23 @@
 
   <script type="text/javascript" src="./fabric.js"></script>
 
+  <style id="compiled-css" type="text/css">
+      .canvas-wrapper {
+        margin-botom: 30px;
+      }
+  </style>
 
   <script type="text/javascript">
 
-  var colours = ["#bf4040", "#ff8205", "#FFFF00", "#33cc33", "#40bfbf",
-               "#3333cc", "#9f40bf", "#bf8040", "#878788", "#000000"];
-
-  $(document).ready (function () {
-      for(var i=0, size=colours.length; i < size; i++) {
-          var colour = colours[i];
-          console.log(colour)
-          $("#colorpicker").append("<button style='background-color:"+colours[i]+"'; value="+colours[i]+"></button>");
-      }
-  });  
-
-  $(window).load(function() {
+  $(window).load(function(){
       
     var canvas;
-    var bg_img = document.getElementById('image');
-    // console.log(img_height)
 
     $(function () {
-        canvas = window._canvas = new fabric.Canvas('draw-canvas');
-        canvas.backgroundColor = null;
-        canvas.setHeight(bg_img.height);
-        canvas.setWidth(bg_img.width);
-        canvas.calcOffset();
+        canvas = window._canvas = new fabric.Canvas('canvas');
+        canvas.backgroundColor = '#efefef';
         canvas.isDrawingMode= 1;
-        canvas.freeDrawingBrush.color = "red";
+        canvas.freeDrawingBrush.color = "purple";
         canvas.freeDrawingBrush.width = 10;
         canvas.renderAll();
 
@@ -48,68 +37,40 @@
         });
       });
 
-    document.getElementById("clear").addEventListener('click', function() {
-      canvas.clear();
-      console.log("cleared");
     });
 
-    document.getElementById("drawing-line-width").onchange = function() {
-      canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-      document.getElementById("drawing-line-width-span").innerHTML = this.value;
-    }
-
-    document.getElementById("drawing-mode").onclick = function() {
-      canvas.isDrawingMode = !canvas.isDrawingMode;
-      if (canvas.isDrawingMode) {
-        document.getElementById("drawing-mode").innerHTML = 'Cancel drawing mode';
-        document.getElementById('drawing-options').style.display = '';
-      }
-      else {
-        document.getElementById("drawing-mode").innerHTML = 'Enter drawing mode';
-        document.getElementById('drawing-options').style.display = 'none';
-      }
-    };
-
-    document.getElementById("export-svg-button").onclick = function() {
-      var trsvg = canvas.toSVG();
-      console.log('save...');
-      console.log(JSON.stringify(trsvg));
-      // var canvas_svg = new fabric.Canvas('canvas-svg');
-      // ('#svg-tag').html(trsvg);
-    };
-
-  });
-
 </script>
+
+<canvas id="canvas" width="400" height="400" class="canvas"></canvas>
+
+<!--
+<select name="colors" id="colorpick">
+  <option value="#FFFF00">Yellow</option>
+  <option value="#000000">Black</option>
+  <option value="#FF0000">Red</option>
+</select>
+-->
+
+<!-- <div id="colorpicker">
+  <button id="yellow" value="FFFF00">yellow</button>
+  <button id="black" value="000000">black</button>
+</div> -->
+
 </head>
 <body>
+    <div class="canvas-container" style="width: 400px; height: 400px; position: relative; user-select: none;"><canvas id="canvas" width="400" height="400" class="canvas lower-canvas" style="position: absolute; width: 400px; height: 400px; left: 0px; top: 0px; touch-action: none; user-select: none;"></canvas><canvas class="upper-canvas canvas" width="400" height="400" style="position: absolute; width: 400px; height: 400px; left: 0px; top: 0px; touch-action: none; user-select: none; cursor: crosshair;"></canvas></div>
 
+<!--
+<select name="colors" id="colorpick">
+  <option value="#FFFF00">Yellow</option>
+  <option value="#000000">Black</option>
+  <option value="#FF0000">Red</option>
+</select>
+-->
 
-<div class="container" style="position: relative; display: inline-block;">
-  <img id="image" src="https://s3-eu-west-1.amazonaws.com/informatics-webimages/test-plot.png" width="400" style="position: absolute"/>
-  <canvas id="draw-canvas" style="position: relative; left: 0; top: 0; z-index: 1;"></canvas>
-</div>
-
-<div id="drawing" style="vertical-align: top; display: inline-block; margin-left: 20px;">
-  
-  <div id="drawing-export-svg">
-    <button id="export-svg-button">Export SVG</button>
-  </div>
-
-  <div id="drawing-toggle"> 
-    <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button> 
-  </div>
-
-  <div id="drawing-options"> 
-    <div id="colorpicker">
-    <!-- Filled with JavaScript
-    -->
-    </div>
-    <button id="clear">clear</button>
-    <label for="drawing-line-width">Line width:</label>
-    <span class="info" id="drawing-line-width-span">30</span>
-    <input type="range" value="30" min="0" max="150" id="drawing-line-width">
-  </div>
+<div id="colorpicker">
+<button id="yellow" value="FFFF00">yellow</button>
+<button id="black" value="000000">black</button>
 </div>
 
 

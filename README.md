@@ -5,13 +5,12 @@ This is a thing that does a thing...
 ## set up assuming conda:  
 
 ```
-conda  create -n py36 python=3.6 
+conda create -n py36 python=3.6 
 . activate py36
 python3 -m venv ./env
 . env/bin/activate 
 pip install zappa flask
 ```
-
 
 ## once set up:
 
@@ -29,5 +28,3 @@ pip install zappa flask
 
 ## tear down
 `zappa undeploy dev`
-
-

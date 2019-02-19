@@ -19,6 +19,7 @@ function init () {
     $("#colorpicker").click( colourPick );
     $("#drawing-mode").click( toggleDrawingMode );
     $("#drawing-line-width").change( lineWidth );
+    $("#export-svg-button").click ( exportSVG );
 };
 
 function setUpImageAndCanvas () {
@@ -74,10 +75,19 @@ function lineWidth () {
 };
 
 // Export scribbles as SVG to S3.
-// document.getElementById("export-svg-button").onclick = function() {
-//   var trsvg = canvas.toSVG();
-//   console.log('save...');
-//   console.log(JSON.stringify(trsvg));
-//   // var canvas_svg = new fabric.Canvas('canvas-svg');
-//   // ('#svg-tag').html(trsvg);
-// };
+function exportSVG () {
+    var trsvg = canvas.toSVG();
+    console.log('save...');
+
+    var request = $.ajax({
+        url: "https://ngj8pqd220.execute-api.eu-west-1.amazonaws.com/dev",
+        method: "POST",
+        headers: {'Access-Control-Allow-Origin': true},
+        data: { "user_file" : trsvg },
+        dataType: "text"
+    }).done(function( msg ) {
+        console.log( msg );
+    }).fail(function( jqXHR, textStatus ) {
+        console.log( "Request failed: " + textStatus );
+    });
+};

@@ -6,6 +6,6 @@
         "project_name": "annotable",
         "runtime": "python3.6",
         "s3_bucket": "informatics-webimages",
-        "cors": true,
+        "cors": True,
     }
 }

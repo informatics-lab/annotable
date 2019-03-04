@@ -24,7 +24,7 @@ def upload_file():
         fs = request.files['user_file']
         print(type(fs))
         print(fs.mimetype)
-        fn = secure_filename(fs.filename)
+        fn = 'annotable/'+secure_filename(fs.filename)
 
         sfs = boto3.resource("s3")
         bucket = sfs.Bucket(BUCKET_NAME)

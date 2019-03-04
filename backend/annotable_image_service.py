@@ -28,10 +28,17 @@ def upload_file():
 
         sfs = boto3.resource("s3")
         bucket = sfs.Bucket(BUCKET_NAME)
+        # upload file with native filename
         s3obj = bucket.Object(fn)
         s3obj.put(Body=fs.read(), ContentType=fs.content_type)
+        # update latest file for annotable webapp
+        copy_source = {
+            'Bucket': BUCKET_NAME,
+            'Key': fn
+        }
+        bucket.copy(copy_source, 'annotable/latest')
 
-        return f'Uploaded to s3://{bucket.name}/{fn}'
+        return f'Uploaded to s3://{bucket.name}/{fn}\ns3://{bucket.name}/annotable/latest updated'
 
 if __name__ == '__main__':
     app.run()

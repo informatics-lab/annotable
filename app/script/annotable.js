@@ -14,7 +14,7 @@ $(document).ready (function () {
     for(var i=0, size=brushes.length; i < size; i++) {
         var brush = brushes[i];
         console.log(brush)
-        $("#brushpicker").append("<button id="+brush.name+" style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
+        $("#brushpicker").append("<button id='brush-button' style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
     }
 
     init();
@@ -56,12 +56,6 @@ function brushPick (e) {
         canvas.isDrawingMode = 1;
 };
 
-// // Colour selector.
-// function colourPick (e) {
-//         console.log(e.target.value);
-//         canvas.freeDrawingBrush.color = e.target.value;
-// };
-
 // Toggle drawing mode.
 function toggleDrawingMode () {
     canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -80,13 +74,6 @@ function clearCanvas () {
     console.log('Clear');
     canvas.clear();
 };
-
-// // Change line width.
-// function lineWidth () {
-//     canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-//     $(".drawing-line-width-info").html(this.value);
-//     console.log(this.value);
-// };
 
 // Export scribbles as SVG to S3.
 function exportSVG () {

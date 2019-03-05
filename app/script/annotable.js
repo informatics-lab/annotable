@@ -9,12 +9,24 @@ var brushes = [
                 {"name": "Error", "color": "red"}
               ];
 
+function brushButton (brush) {
+    var html = `
+    <div id=brush>
+        <button id='brush-button' name='${brush.name}' class='glyphicon glyphicon-pencil' style='background-color:'${brush.color}''; value='${brush.colour}'></button>
+        <b id='brush-name'>${brush.name}</b>
+    </div>
+    `;
+    return html;
+}
+
+
 $(document).ready (function () {
     // Populate brush selector.
     for(var i=0, size=brushes.length; i < size; i++) {
         var brush = brushes[i];
         console.log(brush)
-        $("#brushpicker").append("<button id='brush-button' name="+brush.name+" style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
+        // $("#brushpicker").append("<button id='brush-button' name="+brush.name+" class='glyphicon glyphicon-pencil' style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
+        $("#brushpicker").append(brushButton(brush))
     }
 
     init();
@@ -25,7 +37,6 @@ function init () {
     $("#clear").click( clearCanvas );
     $("#brushpicker").click( brushPick );
     $("#move-mode").click( moveMode );
-    // $("#drawing-line-width").change( lineWidth );
     $("#export-svg-button").click ( exportSVG );
 };
 

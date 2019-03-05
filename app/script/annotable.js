@@ -14,7 +14,7 @@ $(document).ready (function () {
     for(var i=0, size=brushes.length; i < size; i++) {
         var brush = brushes[i];
         console.log(brush)
-        $("#brushpicker").append("<button id='brush-button' style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
+        $("#brushpicker").append("<button id='brush-button' name="+brush.name+" style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
     }
 
     init();
@@ -51,7 +51,7 @@ function setUpCanvas (img_height, img_width) {
 
 // Brush selector.
 function brushPick (e) {
-        console.log(e.target.id);
+        console.log(e.target.name);
         canvas.freeDrawingBrush.color = e.target.value;
         canvas.isDrawingMode = 1;
 };

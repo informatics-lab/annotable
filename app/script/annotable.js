@@ -12,7 +12,7 @@ var brushes = [
 function brushButton (brush) {
     var html = `
     <div id=brush>
-        <button id='brush-button' name='${brush.name}' class='glyphicon glyphicon-pencil' style='background-color:'${brush.color}''; value='${brush.colour}'></button>
+        <button id='brush-button' name='${brush.name}' class='glyphicon glyphicon-pencil' style='color: ${brush.color}'; value='${brush.color}'></button>
         <b id='brush-name'>${brush.name}</b>
     </div>
     `;

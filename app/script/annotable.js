@@ -24,7 +24,7 @@ function init () {
     $("#image").one( "load", setUpImageAndCanvas );
     $("#clear").click( clearCanvas );
     $("#brushpicker").click( brushPick );
-    $("#drawing-mode").click( toggleDrawingMode );
+    $("#move-mode").click( moveMode );
     // $("#drawing-line-width").change( lineWidth );
     $("#export-svg-button").click ( exportSVG );
 };
@@ -57,16 +57,8 @@ function brushPick (e) {
 };
 
 // Toggle drawing mode.
-function toggleDrawingMode () {
+function moveMode () {
     canvas.isDrawingMode = !canvas.isDrawingMode;
-    if (canvas.isDrawingMode) {
-        $("#drawing-mode").html('Cancel drawing mode');
-        $(".drawing-controls").show();
-    }
-    else {
-        $("#drawing-mode").html('Enter drawing mode');
-        $(".drawing-controls").hide();
-    }
 };
 
 // Clear canvas button.

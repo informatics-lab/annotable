@@ -16,18 +16,16 @@
             <img id="image" src="https://s3-eu-west-1.amazonaws.com/informatics-webimages/test-plot.png" width="400"/>
             <canvas id="draw-canvas" class="canvas"></canvas>
         </div>
-        <div class="controls">
+        <div class="line-controls">
             <button id="move-mode" class="glyphicon glyphicon-move"></button>
-            <div class=drawing-controls>
-                <button id="export-svg-button">Export SVG</button>
-                <br />
-                <button id="clear" type="submit">Clear canvas</button>
-                <br />
-                <br>
-                <div id="brushpicker">
-                    <!--Completed by JS.-->
-                </div>
-            </div>
+            <button id="remove" class="glyphicon glyphicon-erase"></button>
+        </div>
+        <div id=canvas-controls>
+            <button id="export-svg-button">Export SVG</button>
+            <button id="clear" type="submit">Clear canvas</button>
+        </div>
+        <div id="brushpicker">
+            <!--Completed by JS.-->
         </div>
     </body>
 </html>

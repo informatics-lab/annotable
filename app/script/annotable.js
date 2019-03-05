@@ -1,13 +1,20 @@
 var canvas;
-var colours = ["#bf4040", "#ff8205", "#FFFF00", "#33cc33", "#40bfbf",
-               "#3333cc", "#9f40bf", "#bf8040", "#878788", "#000000"];
+// var colours = ["#bf4040", "#ff8205", "#FFFF00", "#33cc33", "#40bfbf",
+//                "#3333cc", "#9f40bf", "#bf8040", "#878788", "#000000"];
+
+var brushes = [
+                {"name": "Weather_Warning", "color": "orange"},
+                {"name": "Warm_Front", "color": "red"},
+                {"name": "Cold_Front", "color": "blue"},
+                {"name": "Error", "color": "red"}
+              ];
 
 $(document).ready (function () {
-    // Populate colour selector.
-    for(var i=0, size=colours.length; i < size; i++) {
-        var colour = colours[i];
-        console.log(colour)
-        $("#colorpicker").append("<button id='color-button' style='background-color:"+colours[i]+"'; value="+colours[i]+"></button>");
+    // Populate brush selector.
+    for(var i=0, size=brushes.length; i < size; i++) {
+        var brush = brushes[i];
+        console.log(brush)
+        $("#brushpicker").append("<button id="+brush.name+" style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
     }
 
     init();
@@ -16,9 +23,9 @@ $(document).ready (function () {
 function init () {
     $("#image").one( "load", setUpImageAndCanvas );
     $("#clear").click( clearCanvas );
-    $("#colorpicker").click( colourPick );
+    $("#brushpicker").click( brushPick );
     $("#drawing-mode").click( toggleDrawingMode );
-    $("#drawing-line-width").change( lineWidth );
+    // $("#drawing-line-width").change( lineWidth );
     $("#export-svg-button").click ( exportSVG );
 };
 
@@ -36,17 +43,24 @@ function setUpCanvas (img_height, img_width) {
     canvas.setWidth(img_width);
     canvas.calcOffset();
     canvas.isDrawingMode = 1;
-    canvas.freeDrawingBrush.color = "black";
-    canvas.freeDrawingBrush.width = 10;
+    canvas.freeDrawingBrush.color = "red";
+    canvas.freeDrawingBrush.width = 5;
     canvas.renderAll();
     console.log("Canvas ready: " + img_height + "x" + img_width);
 };
 
-// Colour selector.
-function colourPick (e) {
-        console.log(e.target.value);
+// Brush selector.
+function brushPick (e) {
+        console.log(e.target.id);
         canvas.freeDrawingBrush.color = e.target.value;
+        canvas.isDrawingMode = 1;
 };
+
+// // Colour selector.
+// function colourPick (e) {
+//         console.log(e.target.value);
+//         canvas.freeDrawingBrush.color = e.target.value;
+// };
 
 // Toggle drawing mode.
 function toggleDrawingMode () {
@@ -67,12 +81,12 @@ function clearCanvas () {
     canvas.clear();
 };
 
-// Change line width.
-function lineWidth () {
-    canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-    $(".drawing-line-width-info").html(this.value);
-    console.log(this.value);
-};
+// // Change line width.
+// function lineWidth () {
+//     canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+//     $(".drawing-line-width-info").html(this.value);
+//     console.log(this.value);
+// };
 
 // Export scribbles as SVG to S3.
 function exportSVG () {

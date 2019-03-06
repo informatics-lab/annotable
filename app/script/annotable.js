@@ -69,7 +69,7 @@ function brushPick (e) {
 
 // Toggle drawing mode.
 function moveMode () {
-    canvas.isDrawingMode = !canvas.isDrawingMode;
+    canvas.isDrawingMode = 0;
 };
 
 // Clear canvas button.

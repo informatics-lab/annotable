@@ -8,24 +8,27 @@
         <script type="text/javascript" src="script/fabric.min.js"></script>
         <script type="text/javascript" src="script/annotable.js" charset="utf-8"></script>
 
-        <link type="text/css" href="css/annotable.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <link type="text/css" href="css/annotable.css" rel="stylesheet">
     </head>
     <body>
         <div class="canvas-wrapper">
             <img id="image" src="https://s3-eu-west-1.amazonaws.com/informatics-webimages/test-plot.png" width="400"/>
             <canvas id="draw-canvas" class="canvas"></canvas>
         </div>
-        <div class="line-controls">
-            <button id="move-mode" class="glyphicon glyphicon-move"></button>
-            <button id="remove" class="glyphicon glyphicon-erase"></button>
-        </div>
-        <div id=canvas-controls>
-            <button id="export-svg-button">Export SVG</button>
-            <button id="clear" type="submit">Clear canvas</button>
-        </div>
-        <div id="brushpicker">
-            <!--Completed by JS.-->
+        <div class="controls">
+            <div class="line-controls">
+                <button id="move-mode" class="glyphicon glyphicon-move"></button>
+                <button id="remove" class="glyphicon glyphicon-erase"></button>
+            </div>
+            <div id="brushpicker">
+                <!--Completed by JS.-->
+            </div>
+            <div class="canvas-controls">
+                <button id="export-svg-button">Export SVG</button>
+                <button id="clear" type="submit">Clear canvas</button>
+            </div>
         </div>
     </body>
 </html>

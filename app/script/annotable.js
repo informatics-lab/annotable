@@ -84,7 +84,7 @@ function exportSVG () {
     console.log('save...');
 
     var request = $.ajax({
-        url: "https://ngj8pqd220.execute-api.eu-west-1.amazonaws.com/dev",
+        url: "https://zpf8m2yw3d.execute-api.eu-west-1.amazonaws.com/dev/upload",
         method: "POST",
         headers: {'Access-Control-Allow-Origin': true},
         data: { "user_file" : trsvg },

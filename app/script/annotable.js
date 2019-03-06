@@ -1,6 +1,4 @@
 var canvas;
-// var colours = ["#bf4040", "#ff8205", "#FFFF00", "#33cc33", "#40bfbf",
-//                "#3333cc", "#9f40bf", "#bf8040", "#878788", "#000000"];
 
 var brushes = [
                 {"name": "Weather_Warning", "color": "orange"},
@@ -21,15 +19,16 @@ function brushButton (brush) {
 
 
 $(document).ready (function () {
+    init();
+
     // Populate brush selector.
     for(var i=0, size=brushes.length; i < size; i++) {
         var brush = brushes[i];
         console.log(brush)
-        // $("#brushpicker").append("<button id='brush-button' name="+brush.name+" class='glyphicon glyphicon-pencil' style='background-color:"+brush.color+"'; value="+brush.color+"></button>");
         $("#brushpicker").append(brushButton(brush))
     }
 
-    init();
+
 });
 
 function init () {
@@ -58,7 +57,7 @@ function setUpCanvas (img_height, img_width) {
     canvas.freeDrawingBrush.color = "red";
     canvas.freeDrawingBrush.width = 5;
     canvas.renderAll();
-    console.log("Canvas ready: " + img_height + "x" + img_width);
+    console.log("Canvas ready: " + img_height + " x " + img_width + " px");
 };
 
 // Brush selector.
@@ -84,7 +83,6 @@ function clearCanvas () {
 function deleteObjects(){
     console.log("Delete")
     var activeObjects = canvas.getActiveObjects();
-    // console.log("deleteObjects")
     if (activeObjects.length > 0) {
         // console.log("activeGroup.length > 0 == true")
         for (object of activeObjects) {

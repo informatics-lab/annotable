@@ -37,6 +37,7 @@ function init () {
     $("#clear").click( clearCanvas );
     $("#brushpicker").click( brushPick );
     $("#move-mode").click( moveMode );
+    $("#remove").click( deleteObjects );
     $("#export-svg-button").click ( exportSVG );
 };
 
@@ -77,6 +78,19 @@ function clearCanvas () {
     console.log('Clear');
     canvas.clear();
 };
+
+// Delete lines
+function deleteObjects(){
+    var activeObjects = canvas.getActiveObjects();
+    // console.log("deleteObjects")
+    if (activeObjects.length > 0) {
+        // console.log("activeGroup.length > 0 == true")
+        for (object of activeObjects) {
+                canvas.remove(object);
+                // console.log(object);
+        }
+    }
+}
 
 // Export scribbles as SVG to S3.
 function exportSVG () {

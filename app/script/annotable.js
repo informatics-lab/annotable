@@ -1,10 +1,11 @@
 var canvas;
 
 var brushes = [
-                {"name": "Weather_Warning", "color": "orange"},
                 {"name": "Warm_Front", "color": "red"},
                 {"name": "Cold_Front", "color": "blue"},
-                {"name": "Error", "color": "red"}
+                {"name": "Occluded_Front", "color": "purple"},
+                {"name": "Weather_Warning", "color": "orange"},
+                {"name": "Error", "color": "grey"}
               ];
 
 function brushButton (brush) {
@@ -31,8 +32,17 @@ $(document).ready (function () {
 
 });
 
+// function isImageDoneAlreadyOrWhat () {
+//
+// }
+
 function init () {
-    $("#image").one( "load", setUpImageAndCanvas );
+    // $("#image").one( "load", setUpImageAndCanvas );
+    if (document.getElementById('image').complete){
+        setUpImageAndCanvas()
+    } else {
+        $("#image").one( "load", setUpImageAndCanvas );
+    }
     $("#clear").click( clearCanvas );
     $("#brushpicker").click( brushPick );
     $("#move-mode").click( moveMode );
@@ -100,9 +110,12 @@ function exportSVG () {
     var request = $.ajax({
         url: "https://zpf8m2yw3d.execute-api.eu-west-1.amazonaws.com/dev/upload",
         method: "POST",
-        headers: {'Access-Control-Allow-Origin': true},
-        data: { "user_file" : trsvg },
-        dataType: "text"
+        // headers: {'Access-Control-Allow-Origin': true},
+        // headers: {},
+        // data: { "user_file" : trsvg },
+        data: trsvg
+        // dataType: "text"
+        // mime_type: 'img/svg'
     }).done(function( msg ) {
         console.log( msg );
     }).fail(function( jqXHR, textStatus ) {

@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
     color: #222222;
-    background-color: black;
+    background-color: white;
 }
 
 p {
@@ -26,6 +26,7 @@ p {
     margin-left: 15px;
     background: #efefef;
     padding: 1px;
+    padding-top: 20px;
 }
 
 .canvas-wrapper {

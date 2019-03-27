@@ -1,24 +1,52 @@
 var canvas;
-var colours = ["#bf4040", "#ff8205", "#FFFF00", "#33cc33", "#40bfbf",
-               "#3333cc", "#9f40bf", "#bf8040", "#878788", "#000000"];
+
+var brushes = [
+                {"name": "Warm_Front", "color": "red"},
+                {"name": "Cold_Front", "color": "blue"},
+                {"name": "Occluded_Front", "color": "purple"},
+                {"name": "Weather_Warning", "color": "orange"},
+                {"name": "Error", "color": "grey"}
+              ];
+
+function brushButton (brush) {
+    var html = `
+    <div id=brush>
+        <button id='brush-button' name='${brush.name}' class='glyphicon glyphicon-pencil' style='color: ${brush.color}'; value='${brush.color}'></button>
+        <b id='brush-name'>${brush.name}</b>
+    </div>
+    `;
+    return html;
+}
+
 
 $(document).ready (function () {
-    // Populate colour selector.
-    for(var i=0, size=colours.length; i < size; i++) {
-        var colour = colours[i];
-        console.log(colour)
-        $("#colorpicker").append("<button id='color-button' style='background-color:"+colours[i]+"'; value="+colours[i]+"></button>");
+    init();
+
+    // Populate brush selector.
+    for(var i=0, size=brushes.length; i < size; i++) {
+        var brush = brushes[i];
+        console.log(brush)
+        $("#brushpicker").append(brushButton(brush))
     }
 
-    init();
+
 });
 
+// function isImageDoneAlreadyOrWhat () {
+//
+// }
+
 function init () {
-    $("#image").one( "load", setUpImageAndCanvas );
+    // $("#image").one( "load", setUpImageAndCanvas );
+    if (document.getElementById('image').complete){
+        setUpImageAndCanvas()
+    } else {
+        $("#image").one( "load", setUpImageAndCanvas );
+    }
     $("#clear").click( clearCanvas );
-    $("#colorpicker").click( colourPick );
-    $("#drawing-mode").click( toggleDrawingMode );
-    $("#drawing-line-width").change( lineWidth );
+    $("#brushpicker").click( brushPick );
+    $("#move-mode").click( moveMode );
+    $("#delete").click( deleteObjects );
     $("#export-svg-button").click ( exportSVG );
 };
 
@@ -36,29 +64,23 @@ function setUpCanvas (img_height, img_width) {
     canvas.setWidth(img_width);
     canvas.calcOffset();
     canvas.isDrawingMode = 1;
-    canvas.freeDrawingBrush.color = "black";
-    canvas.freeDrawingBrush.width = 10;
+    canvas.freeDrawingBrush.color = "red";
+    canvas.freeDrawingBrush.width = 5;
     canvas.renderAll();
-    console.log("Canvas ready: " + img_height + "x" + img_width);
+    console.log("Canvas ready: " + img_height + " x " + img_width + " px");
 };
 
-// Colour selector.
-function colourPick (e) {
-        console.log(e.target.value);
+// Brush selector.
+function brushPick (e) {
+        console.log(e.target.name);
         canvas.freeDrawingBrush.color = e.target.value;
+        canvas.isDrawingMode = 1;
 };
 
 // Toggle drawing mode.
-function toggleDrawingMode () {
-    canvas.isDrawingMode = !canvas.isDrawingMode;
-    if (canvas.isDrawingMode) {
-        $("#drawing-mode").html('Cancel drawing mode');
-        $(".drawing-controls").show();
-    }
-    else {
-        $("#drawing-mode").html('Enter drawing mode');
-        $(".drawing-controls").hide();
-    }
+function moveMode () {
+    console.log('Move')
+    canvas.isDrawingMode = 0;
 };
 
 // Clear canvas button.
@@ -67,24 +89,33 @@ function clearCanvas () {
     canvas.clear();
 };
 
-// Change line width.
-function lineWidth () {
-    canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-    $(".drawing-line-width-info").html(this.value);
-    console.log(this.value);
-};
+// Delete lines
+function deleteObjects(){
+    console.log("Delete")
+    var activeObjects = canvas.getActiveObjects();
+    if (activeObjects.length > 0) {
+        // console.log("activeGroup.length > 0 == true")
+        for (object of activeObjects) {
+                canvas.remove(object);
+                // console.log(object);
+        }
+    }
+}
 
 // Export scribbles as SVG to S3.
 function exportSVG () {
     var trsvg = canvas.toSVG();
-    console.log('save...');
+    console.log('Export_SVG');
 
     var request = $.ajax({
-        url: "https://ngj8pqd220.execute-api.eu-west-1.amazonaws.com/dev",
+        url: "https://zpf8m2yw3d.execute-api.eu-west-1.amazonaws.com/dev/upload",
         method: "POST",
-        headers: {'Access-Control-Allow-Origin': true},
-        data: { "user_file" : trsvg },
-        dataType: "text"
+        // headers: {'Access-Control-Allow-Origin': true},
+        // headers: {},
+        // data: { "user_file" : trsvg },
+        data: trsvg
+        // dataType: "text"
+        // mime_type: 'img/svg'
     }).done(function( msg ) {
         console.log( msg );
     }).fail(function( jqXHR, textStatus ) {

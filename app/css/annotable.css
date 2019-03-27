@@ -1,6 +1,7 @@
 body {
     font-family: sans-serif;
     color: #222222;
+    background-color: white;
 }
 
 p {
@@ -8,11 +9,15 @@ p {
     margin-bottom: 8px;
 }
 
-#color-button {
-    width: 30px;
-    height: 15px;
+#brush-button {
+    display: inline-block;
     padding: 1px;
     margin-right: 3px;
+}
+
+.glyphicon {
+    width: 30px;
+    height: 30px;
 }
 
 .controls {
@@ -20,7 +25,8 @@ p {
     vertical-align: top;
     margin-left: 15px;
     background: #efefef;
-    padding: 10px;
+    padding: 1px;
+    padding-top: 20px;
 }
 
 .canvas-wrapper {
@@ -43,35 +49,13 @@ p {
     z-index: 1;
 } */
 
-#drawing-line-width-text {
-    float: left;
-    display: inline-grid;
+#brush {
+    display: block;
 }
 
-#drawing-line-width {
-    display: inline-grid;
-    margin-left: 12px;
-}
-
-.drawing-line-width-info {
-    display: inline-grid;
-    border: 1px solid #aaa;
-    padding: 5px;
-    margin-left: 5px;
-}
-
-#colorpicker {
+#brushpicker {
     display: inline-block;
     vertical-align: top;
     background: #efefef;
-    padding: 10px;
+    padding: 1px;
 }
-
-
-/* button#yellow {
-    background-color: yellow;
-}
-
-button#black {
-    background-color: black;
-} */
